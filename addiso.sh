@@ -4,10 +4,10 @@
 ########### This script will add an entry to your grub boot menu for the ISO selected by the Dolphin Service Menu ##########
 ########### It will not work if not called from it ##########
 ###########
-########### This is the experimental version ###########
-########### To actually make it work, comment out the "echo "$grubentry" >>customentry.txt" line ##########
+########### This is the live version ###########
+########### To just test it, comment out the "echo "$grubentry" | sudo tee -a /etc/grub.d/40_custom" line ##########
 ########### and uncomment the following one  ###########
-########### Do the same for the"ls -la" one  ###########
+########### Do the same for the"lpkexec update-grub" one  ###########
 isoentry="$1";isoshort="${isoentry##*/}"
 echo A couple of checks:
 
@@ -66,8 +66,8 @@ EOF
 esac
 
 echo $'\e[0;36m'Adding entry to /etc/grub.d/40_custom...
-#echo "$grubentry" | sudo tee -a /etc/grub.d/40_custom ## This is the actual line
-echo "$grubentry" >>~/.local/share/kservices5/ServiceMenus/customentry.txt ## This is the line for testing purposes :·)
+echo "$grubentry" | sudo tee -a /etc/grub.d/40_custom ## This is the actual line
+#echo "$grubentry" >>~/.local/share/kservices5/ServiceMenus/customentry.txt ## This is the line for testing purposes :·)
 echo $'\e[0;36m'Done
 echo Entry added to /etc/grub.d/40_custom
 echo
@@ -95,8 +95,8 @@ done
 echo
 echo "Updating grub..."
 echo $'\e[0;37m'
-#pkexec update-grub ## This is the actual line
-ls -la ## This is the line for testing purposes :·)
+pkexec update-grub ## This is the actual line
+#ls -la ## This is the line for testing purposes :·)
 echo $'\e[0;36m'
 echo "Let's check. "
 echo "These are the last 24 lines of /boot/grub/grub.cfg:"
