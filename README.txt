@@ -6,6 +6,3 @@ Choosing that will open the script and guide you through the process.
 
 At boot, you should then find an entry in your grub menu for "New bootable ISO".
 
-This is currently in Testing/experimental mode.
-To actually make the script work, read the comments at the top.
-
