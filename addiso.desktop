@@ -1,0 +1,13 @@
+[Desktop Entry]
+Type=Service
+Icon=application-x-cd-image
+X-KDE-ServiceTypes=KonqPopupMenu/Plugin
+MimeType=application/x-cd-image;model/x.stl-binary;
+Actions=addiso;
+X-KDE-Priority=TopLevel
+Encoding=UTF-8
+
+[Desktop Action addiso]
+Name=Add ISO to grub
+Icon=application-x-cd-image
+Exec=konsole --hold -e ~/.local/share/kservices5/ServiceMenus/addiso.sh "%f" 
