@@ -65,7 +65,6 @@ EOF
 esac
 echo $'\e[0;36m'The following entry will be added to to /etc/grub.d/40_custom... $'\e[0;37m'
 echo "$grubentry" $'\e[0;36m' 
-#read -rsn1 -p"Press any key to continue";echo
 while true; do
     read -p "Does that look correct? y/n: " yn
     case $yn in
@@ -73,8 +72,9 @@ while true; do
         [Yy]* ) echo "$grubentry" | sudo tee -a /etc/grub.d/40_custom ;echo $'\e[0;37m' ;echo "Entry added. Let's update grub then." $'\e[0;36m' ; break;;
     esac
 done
-
-#echo "$grubentry" >>~/.local/share/kservices5/ServiceMenus/customentry.txt ## This is the line for testing purposes :·)
+#echo "$grubentry" >>~/.local/share/kservices5/ServiceMenus/customentry.txt ## This is a line for testing purposes :·)
+#substitute this for "echo "$grubentry" | sudo tee -a /etc/grub.d/40_custom
+#if you don't want to glog up your 40_custom,
 echo
 echo
 echo
