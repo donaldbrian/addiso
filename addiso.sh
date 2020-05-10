@@ -27,7 +27,6 @@ esac
 echo The partition your ISO is on is $'\e[0;32m' $part $'\e[0;37m'
 echo "grub notation": $p4
 echo
-echo
 grbv=$(grub-install --version  | awk '/(GRUB)/ {print substr($3,4,1)}')
 case $grbv in 
 2) echo Your grub version is $'\e[0;32m' "2.0"$grbv".  OK." $'\e[0;37m'
@@ -45,7 +44,8 @@ menuentry "$isoshort" {
 }
 EOF
 )"              ;;
-4) echo Your grub version is $'\e[0;33m' "2.0"$grbv". Grub 2.04 is known to have problems with loopack devices." $'\e[0;37m'
+4) echo Your grub version is $'\e[0;32m' "2.0"$grbv". Grub 2.04" $'\e[0;33m'"may" $'\e[0;32m'"have problems with loopack devices, but it's probably OK.." $'\e[0;37m'
+echo
 isoentry="$1"
 lz=$(isoinfo -l -i $isoentry |grep -i initrd | awk '{ print substr($NF, 1, length($NF)-2)}' | tr '[A-Z]' '[a-z]')
 grubentry="$(cat <<-EOF
@@ -62,27 +62,20 @@ menuentry "$isoshort" {
 }
 EOF
 )"             ;;
-###read -rsn1 -p"Press any key to continue";echo ;;
 esac
-
-echo $'\e[0;36m'Adding entry to /etc/grub.d/40_custom...
-echo "$grubentry" | sudo tee -a /etc/grub.d/40_custom ## This is the actual line
-#echo "$grubentry" >>~/.local/share/kservices5/ServiceMenus/customentry.txt ## This is the line for testing purposes :·)
-echo $'\e[0;36m'Done
-echo Entry added to /etc/grub.d/40_custom
-echo
-#echo The added entry was:
-#echo $'\e[0;37m'
-#tail -10 ~/.local/share/kservices5/ServiceMenus/customentry.txt
-#echo $'\e[0;36m'
-echo
+echo $'\e[0;36m'The following entry will be added to to /etc/grub.d/40_custom... $'\e[0;37m'
+echo "$grubentry" $'\e[0;36m' 
+#read -rsn1 -p"Press any key to continue";echo
 while true; do
     read -p "Does that look correct? y/n: " yn
     case $yn in
         [Nn]* ) echo Close the window to exit.;exit;;
-        [Yy]* ) echo "OK. Let's update grub then."; break;;
+        [Yy]* ) echo "$grubentry" | sudo tee -a /etc/grub.d/40_custom ;echo $'\e[0;37m' ;echo "Entry added. Let's update grub then." $'\e[0;36m' ; break;;
     esac
 done
+
+#echo "$grubentry" >>~/.local/share/kservices5/ServiceMenus/customentry.txt ## This is the line for testing purposes :·)
+echo
 echo
 echo
 while true; do
