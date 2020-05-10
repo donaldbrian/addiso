@@ -7,7 +7,7 @@
 ########### This is the live version ###########
 ########### To just test it, comment out the "echo "$grubentry" | sudo tee -a /etc/grub.d/40_custom" line ##########
 ########### and substitute with the one below (or one of your choosing :·)  ###########
-########### Do the same for the"lpkexec update-grub" one  ###########
+########### Do the same for the "pkexec update-grub" one  ###########
 isoentry="$1";isoshort="${isoentry##*/}"
 echo A couple of checks:
 
