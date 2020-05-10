@@ -1,5 +1,5 @@
 Just copy both files to ~/.local/share/kservices5/ServiceMenus/
-Make them executable.
+Make addiso.sh executable - if it isn't already.
 Restart Dolphin.
 After which, when you right-click on an ISO, you'll find an "Add ISO to grub" entry.
 Choosing that will open the script and guide you through the process.
