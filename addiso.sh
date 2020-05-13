@@ -7,25 +7,21 @@
 ########### This is the live version ###########
 ########### To just test it, comment out the "echo "$grubentry" | sudo tee -a /etc/grub.d/40_custom" line ##########
 ########### and uncomment the following one  ###########
-########### Do the same for the"lpkexec update-grub" one  ###########
+########### Do the same for the"sudo update-grub" one  ###########
+
 isoentry="$1";isoshort="${isoentry##*/}"
 echo A couple of checks:
 
-FILE=$(which isoinfo)
+FILE=$(which iso-info)
 if [ -f "$FILE" ]; then
     echo "$FILE exist." $'\e[0;36m' "OK."$'\e[0;37m'
 else 
-    echo "isoinfo is" $'\e[0;31m' "not installed." $'\e[0;37m' "Please [sudo apt] install genisoimage and run this again.";exit
+    echo "iso-info is" $'\e[0;31m' "not installed." $'\e[0;37m' "Please [sudo apt] install libcdio-utils and run this again.";exit
 fi
 echo
 part=$(df -P . | sed -n '$s/[[:blank:]].*//p');p1=${part:7:1};p2=${part:8:1};p3=$(tr abcdefghij 0123456789 <<< "$p1");p4="hd"$p3,$p2
 ptype=${part:5:1}
-lz=$(isoinfo -l -i $isoentry | grep -i initrd | awk '{ print substr($NF, 1, length($NF)-3)}' | tr '[A-Z]' '[a-z]')
-lzch=${lz:7:1}
-if [[ !  -z  $lzch  ]]; then
-   lz=$(isoinfo -l -i $isoentry | grep -i initrd | awk '{ print substr($NF, 1, length($NF)-2)}' | tr '[A-Z]' '[a-z]')
-fi
-#echo "$lz";exit
+lz=$(iso-info -l -i $isoentry | grep -i initrd | awk '{ print $NF}')
 case $ptype in 
 n) p1=${part:9:1};p2=${part:13:1};p4="hd"$p1,$p2                   ;;
 s) p1=${part:7:1};p2=${part:8:1};p3=$(tr abcdefghij 0123456789 <<< "$p1");p4="hd"$p3,$p2                         ;;
@@ -93,7 +89,7 @@ done
 echo
 echo "Updating grub..."
 echo $'\e[0;37m'
-pkexec update-grub ## This is the actual line
+sudo update-grub ## This is the actual line
 #ls -la ## This is the line for testing purposes :·)
 echo $'\e[0;36m'
 echo "Let's check. "
@@ -104,3 +100,4 @@ echo $'\e[0;36m'
 echo "You should find an entry for "$isoshort" in your grub menu that should boot the OS"
 echo
 echo Close the window to exit.
+
