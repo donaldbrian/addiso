@@ -1,3 +1,9 @@
+Until this bug is resolved,
+https://bugs.launchpad.net/ubuntu/+source/calamares-settings-ubuntu/+bug/1876950
+(which does NOT apply just to Lubuntu) the workaround is to remove the "toram" option from /etc/grub.d/40_custom.
+Which *might* cause Calamares to complain, whine and whinge, but do the installation all the same.
+:·/
+
 The script will *not* work without the servicemenu...
 ...unless you edit it and insert the/path/to/the-iso in place of isoentry="$1"
 
