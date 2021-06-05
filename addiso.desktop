@@ -9,5 +9,6 @@ Encoding=UTF-8
 
 [Desktop Action addiso]
 Name=Add ISO to grub
+Name[nl]=ISO toevoegen aan grub
 Icon=application-x-cd-image
 Exec=konsole --hold -e ~/.local/share/kservices5/ServiceMenus/addiso.sh "%f" 
